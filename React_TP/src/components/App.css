@@ -1,0 +1,116 @@
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.card-body{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.card-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-form, .right-form{
+    width: 49%;
+}
+
+.product-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.react-datepicker-wrapper{
+    display: block !important;
+}
+
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+    color: #000;
+    display: inline-block;
+    width: 4.7rem;
+    line-height: 4.7rem;
+    text-align: center;
+    margin: 0.166rem;
+}
+.react-datepicker {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.8rem;
+}
+
+.react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
+    margin-top: 0;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.resume-container{
+    display: flex;
+    flex-direction: row;
+    margin-left: 7.5px;
+    margin-right: 7.5px;
+    justify-content: space-between;
+}
+
+.chart-container, .info-container{
+    min-width: 49%;
+    padding: 20px;
+    background: #ffffff;
+    margin: 7.5px 0px 7.5px 0px;
+
+}
+
+.chart{}
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
+    max-height: 350px;
+    background-color: lightblue;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 350px;
+    height: 100%;
+    width: 100%;
+}
+
+.circle .title {
+    font-size: 2em;
+}
+
+.circle .value {
+    font-size: 3em;
+}
+
+.circle .date {
+    font-size: 1em;
+}
+
+.react-datepicker__input-container{
+    width: 100%;
+}
+
+.register-btn{
+    width: 30%;
+    margin: 15px auto;
+    height: 50px;
+    background: green;
+    color: white;
+    font-size: 1.5em;
+    border: 0px;
+    border-radius: 2;
+}
