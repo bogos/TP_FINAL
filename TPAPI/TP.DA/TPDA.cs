@@ -146,20 +146,27 @@ namespace TP.DA
             }
         }
         //-----Listar PRODUCT_MASTER
-        public List<PRODUCT_MASTER> ListProductMaster(int id_typproduct)
+        public List<PRODUCT_MASTER> ListProductMaster()
         {
             using (var db = new tpEntities())
             {
-                return db.PRODUCT_MASTER.Where(p => p.typproduct_id == id_typproduct).ToList();
+                return db.PRODUCT_MASTER.ToList();
             }
         }
 
         //-----Listar PRODUCTS_TRACKING
-        public List<PRODUCTS_TRACKING> listProductTracking(int id_product)
+        //public List<PRODUCTS_TRACKING> listProductTracking(int id_product)
+        //{
+        //    using (var db = new tpEntities())
+        //    {
+        //        return db.PRODUCTS_TRACKING.Where(p => p.product_id == id_product).ToList();
+        //    }
+        //}
+        public List<PRODUCTS_TRACKING> ListProductTracking()
         {
             using (var db = new tpEntities())
             {
-                return db.PRODUCTS_TRACKING.Where(p => p.product_id == id_product).ToList();
+                return db.PRODUCTS_TRACKING.ToList();
             }
         }
 

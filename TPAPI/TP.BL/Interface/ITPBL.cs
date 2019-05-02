@@ -18,8 +18,8 @@ namespace TP.BL.Interface
         List<Carrier_MasterBE> ListCareerMaster();
         List<Tracking_MasterBE> List_Tracking();
         List<City_MasterBE> ListCityMaster();
-        List<Product_MasterBE> ListProductMaster(Product_MasterBE typproduct);
-        List<Product_TrackingBE> ListProductTracking(Product_TrackingBE product);
+        List<Product_MasterBE> ListProductMaster();
+        List<Product_TrackingBE> ListProductTracking();
         List<Sensor_MasterBE> ListSensorMaster();
         List<TypProduct_MasterBE> ListTypProductMaster();
         List<User_MasterBE> Login();

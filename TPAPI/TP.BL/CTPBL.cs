@@ -201,10 +201,10 @@ namespace TP.BL
         }
 
         //-----Listar PRODUCT_MASTER
-        public List<Product_MasterBE> ListProductMaster(Product_MasterBE typproduct)
+        public List<Product_MasterBE> ListProductMaster()
         {
             var trackDA = new TPDA();
-            var listDA = trackDA.ListProductMaster(typproduct.typproduct_id);
+            var listDA = trackDA.ListProductMaster();
             var listBE = new List<Product_MasterBE>();
 
             foreach (var item in listDA)
@@ -214,17 +214,17 @@ namespace TP.BL
                     flg_perishable = item.flg_perishable,
                     product_id = item.product_id,
                     product_name = item.product_name,
-                    typproduct_id = typproduct.typproduct_id
+                    typproduct_id = item.typproduct_id
                 });
             }
             return listBE.ToList();
         }
 
         //-----Listar PRODUCTS_TRACKING
-        public List<Product_TrackingBE> ListProductTracking(Product_TrackingBE product)
+        public List<Product_TrackingBE> ListProductTracking()
         {
             var trackDA = new TPDA();
-            var listDA = trackDA.listProductTracking(product.product_id);
+            var listDA = trackDA.ListProductTracking();
             var listBE = new List<Product_TrackingBE>();
 
             foreach (var item in listDA)
@@ -233,7 +233,7 @@ namespace TP.BL
                 {
                     liters = item.liters,
                     metros_cub = item.metros_cub,
-                    product_id = product.product_id,
+                    product_id = item.product_id,
                     ptracking_id = item.ptracking_id,
                     units = item.units
                 });

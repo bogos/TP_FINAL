@@ -107,12 +107,12 @@ namespace TP.API.Controllers
         //GET:api/TP/ListarProducto 
         [HttpGet]
         [Route("api/TP/ListarProducto")]
-        public IHttpActionResult ListarProducto(Product_MasterBE typproduct)
+        public IHttpActionResult ListarProducto()
         {
             var tpBL = new CTPBL();
             try
             {
-                var resultado = tpBL.ListProductMaster(typproduct);
+                var resultado = tpBL.ListProductMaster();
                 return Json(new { result = true, data = resultado });
             }
             catch (Exception e)
@@ -120,15 +120,33 @@ namespace TP.API.Controllers
                 return Json(new { result = false, data = e.InnerException.ToString() });
             }
         }
-        //GET:api/TP/ListarCargaProductos 
+
+        //GET:api/TP/ListarProducto 
         [HttpGet]
-        [Route("api/TP/ListarCargaProductos")]
-        public IHttpActionResult ListarCargaProductos(Product_TrackingBE product)
+        [Route("api/TP/ListarTipoProducto")]
+        public IHttpActionResult ListarTipoProducto()
         {
             var tpBL = new CTPBL();
             try
             {
-                var resultado = tpBL.ListProductTracking(product);
+                var resultado = tpBL.ListTypProductMaster();
+                return Json(new { result = true, data = resultado });
+            }
+            catch (Exception e)
+            {
+                return Json(new { result = false, data = e.InnerException.ToString() });
+            }
+        }
+
+        //GET:api/TP/ListarCargaProductos 
+        [HttpGet]
+        [Route("api/TP/ListarCargaProductos")]
+        public IHttpActionResult ListarCargaProductos()
+        {
+            var tpBL = new CTPBL();
+            try
+            {
+                var resultado = tpBL.ListProductTracking();
                 return Json(new { result = true, data = resultado });
             }
             catch (Exception e)

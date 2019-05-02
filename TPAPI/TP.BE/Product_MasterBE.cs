@@ -9,7 +9,7 @@ namespace TP.BE
     public class Product_MasterBE
     {
         public int product_id { get; set; }
-        public int typproduct_id { get; set; }
+        public int? typproduct_id { get; set; }
         public string product_name { get; set; }
         public Nullable<bool> flg_perishable { get; set; }
     }
