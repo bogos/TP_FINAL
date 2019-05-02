@@ -21,14 +21,17 @@ class Register extends Component {
             weight:null, //
             delivery_term:null,
             state:"", 
-            value:null, //
+            value: null, //
             observations:"", // 
             start_time:"", 
             end_time:"", 
             location_id:null, 
             user_id:null, 
             id_contrato:"", 
-            carrier_id:0,
+            carrier_id: 0,
+            product_id: "",
+            product_name: "",
+            product_unit: 0,
 
             ListaTipoProducto : [],
             ListaProducto : [],
@@ -97,11 +100,11 @@ class Register extends Component {
         return allServices;
     }
     
-
     handleProductType = async (e) => {
       const target = e.target;
       const value = target.type === 'checkbox'? target.checked:target.value;
       const name = target.name;
+
       await this.setState({
         [name]:value 
      });
@@ -111,7 +114,6 @@ class Register extends Component {
         FilterListaProducto: newListaProducto 
      });
      console.log(this.state);
-
     }
 
     filterDropdownValues(value, lista){
@@ -119,11 +121,19 @@ class Register extends Component {
     }
 
     handleChange = async (e) => {
+        e.persist();
         const value = e.target.type === 'checkbox'? e.target.checked:e.target.value;
+
+        if(e.target.name === "product_id"){
+            // console.log( e.target.value);
+            // console.log(this.state.ListaProducto[0], this.state.ListaProducto[e.target.value].label);
+            const name = this.state.ListaProducto[e.target.value - 1].label;
+            await this.setState({product_name: name});
+        }
+
         await this.setState({
             [e.target.name] :value
         });
-
         console.log(this.state);
     }
 
@@ -142,7 +152,6 @@ class Register extends Component {
         await this.setState({expedition_date: date});
         console.log(this.state);
     }
-
 
     submitRegister = async () => {
         let dump_state = {...this.state};
@@ -174,7 +183,11 @@ class Register extends Component {
             user_id:            Number(dump_state.user_id)||null,
             id_contrato:        String(dump_state.id_contrato), // Not null
             carrier_id:         Number(dump_state.carrier_id),
-            sensor_id:          String(dump_state.sensor_id) // Not null
+            // sensor_id:          String(dump_state.sensor_id) // Not null
+            id_sensor:          String(dump_state.sensor_id),
+            product_id:         null,
+            product_name:       String(dump_state.product_name),
+            product_unit:       Number(dump_state.product_unit)
         }
 
         console.log("Dump_state", dump_state);
@@ -264,10 +277,11 @@ class Register extends Component {
                                             selectableData = {this.state.ListaTipoProducto} handleInputChange = {this.handleProductType} />
                                         <div className="product-container">
                                             <SimpleDropdown 
-                                                label="Producto" name="ptracking_id" 
+                                                label="Producto" name="product_id" 
                                                 selectableData = {this.state.FilterListaProducto < 1 ? [{value:0, label:"Seleccione un Tipo Producto"}] : this.state.FilterListaProducto } 
                                                 handleInputChange = {this.handleChange} />
-                                            <Input label="Unidades" name="units" handleChange={this.handleChange}/>
+
+                                            <Input label="Unidades" name="product_unit" handleChange={this.handleChange} style={{text_align: "center"}}/>
                                         </div>
                                         <div className="table-responsive">
                                             <table className="table table-bordered">
@@ -280,20 +294,10 @@ class Register extends Component {
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Uvas</td>
-                                                        <td>300</td>
+                                                        <th scope="row">{this.state.product_id}</th>
+                                                        <td>{this.state.product_name}</td>
+                                                        <td>{this.state.product_unit}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Fresas</td>
-                                                        <td>400</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Blueberrys</td>
-                                                        <td>500</td>
-                                                    </tr> 
                                                 </tbody>
                                             </table>
                                         </div>
@@ -303,8 +307,8 @@ class Register extends Component {
                                         <Input label="Observaciones" name="observations" handleChange={this.handleChange}/>
                                     </div>
                                 </div>
-                                <button class="register-btn" onClick={this.submitRegister}>Registrar</button>
-                                <span>{this.state.Successfull}</span>
+                                <button className="register-btn" onClick={this.submitRegister}>Registrar</button>
+                                <span className="successfull">{this.state.Successfull}</span>
                             </div>
                         </div>
                     </div>

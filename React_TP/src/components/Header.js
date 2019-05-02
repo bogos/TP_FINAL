@@ -19,7 +19,7 @@ class Header extends Component {
             <div className="pull-left">
             <div className="logo">
               <a href="index.html">
-                <span>E--Track</span>
+                <span>E-Track</span>
               </a>
             </div>
             <div className="hamburger sidebar-toggle">

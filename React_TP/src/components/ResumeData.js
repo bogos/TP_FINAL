@@ -13,7 +13,6 @@ class ResumeData extends Component {
 			value: 0,
 			date: 0
 		}
-
 	}
 	componentDidMount() {
 		this.interval = setInterval(this.updateChart, updateInterval);
@@ -79,7 +78,6 @@ class ResumeData extends Component {
 			<div className="resume-container">
 				<div className="chart-container">
 					<div className="chart">
-						
 						<CanvasJSReact.CanvasJSChart 
 							options = {options}
 							onRef={ref => this.chart = ref}
@@ -88,13 +86,13 @@ class ResumeData extends Component {
 				</div>
 				<div className="info-container">
 					<div className="circle">
-						{/* <h5 className="title">{this.props.id}</h5> */}
+						<img src={this.props.image}/>
 						<span className="value">
-							{ this.state.value }
+							{ this.state.value }{this.props.signo}
 						</span>
-						<span className="date">
+						{/* <span className="date">
 							{ this.state.date }
-						</span>
+						</span> */}
 					</div>
 				</div>
 			</div>

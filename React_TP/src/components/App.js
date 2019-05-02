@@ -3,9 +3,9 @@ import { Route } from "react-router-dom";
 import Header from "./Header.js";
 import HomePage from "./HomePage.js";
 import Sidebar from "./Sidebar";
-import HistoryPage from "./HistoryPage.js";
+// import HistoryPage from "./HistoryPage.js";
 
-import {Trollbox} from 'trollbox-pro'
+// import {Trollbox} from 'trollbox-pro'
 import RegisterPage from "./RegisterPage";
 
 
@@ -41,18 +41,9 @@ class App extends Component {
                             <HomePage/>
                         }
                         />
-                        <Route path="/history" render={() =>
-                            <HistoryPage
-                                
-                            />}
-                            />
+
                         <Route path="/register" render={() =>
                             <RegisterPage/>
-                        }
-                        />
-                        
-                        <Route path="/trollbox" render={() =>
-                            <Trollbox ></Trollbox>
                         }
                         />
                         </div>
