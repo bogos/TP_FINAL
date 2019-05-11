@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import Input from './microComponents/Input';
 import SimpleDropdown from './microComponents/SimpleDropdown';
-import 'react-dropdown/style.css';
 import {DBServices} from '../services';
 import DatePicker from 'react-datepicker';
+import PropTypes from 'prop-types';
+
+import 'react-dropdown/style.css';
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -14,24 +16,25 @@ class Register extends Component {
         this.state = {
             tracking_id:"", //
             expedition_date:"",// 
-            city_id: null,//
+            city_id: 1,//
             destinity_address:"",
             address:"",
             ptracking_id: null, //
-            weight:null, //
+            weight: "", //number
             delivery_term:null,
             state:"", 
-            value: null, //
+            value: "", //number
             observations:"", // 
             start_time:"", 
             end_time:"", 
             location_id:null, 
             user_id:null, 
             id_contrato:"", 
-            carrier_id: 0,
+            carrier_id: 1,
             product_id: "",
             product_name: "",
-            product_unit: 0,
+            product_unit: "",//number
+            product_type_id: "1",
 
             ListaTipoProducto : [],
             ListaProducto : [],
@@ -79,6 +82,7 @@ class Register extends Component {
     organizeAllSevicesData = async() => {
         let allServices = await this.resolveAllServices();
         
+        if(allServices < 0) return;
         allServices.ListaTipoProducto = allServices.ListaTipoProducto.map(x => {return { value: x.typproduct_id , label: x.typ_name}});
         // allServices.ListaProducto = allServices.ListaProducto.map(x=> {return{value: x.product_id, label: x.product_name, product_type: x.typproduct_id}})
         
@@ -130,10 +134,11 @@ class Register extends Component {
             const name = this.state.ListaProducto[e.target.value - 1].label;
             await this.setState({product_name: name});
         }
-
+       
         await this.setState({
             [e.target.name] :value
         });
+
         console.log(this.state);
     }
 
@@ -185,12 +190,14 @@ class Register extends Component {
             carrier_id:         Number(dump_state.carrier_id),
             // sensor_id:          String(dump_state.sensor_id) // Not null
             id_sensor:          String(dump_state.sensor_id),
+            product_type_id:    Number(dump_state.product_type_id),
             product_id:         null,
             product_name:       String(dump_state.product_name),
             product_unit:       Number(dump_state.product_unit)
         }
 
         console.log("Dump_state", dump_state);
+
         let response = await this.DBServices.postRegistroCarga(dump_state);
         console.log("DONE!", response);
 
@@ -229,7 +236,7 @@ class Register extends Component {
                             <div className="card-body">
                                 <div className="card-container">
                                     <div className="left-form">
-                                        <Input label="Codigo Seguimiento" name="tracking_id" handleChange={this.handleChange}/>
+                                        <Input label="Codigo Seguimiento" pattern="" name="tracking_id" handleChange={this.handleChange}/>
                                         <div className ="form-group">
                                             <label>Plazo de entrega</label>
                                             <DatePicker
@@ -239,6 +246,7 @@ class Register extends Component {
                                                 onChange={this.handleExpeditionTimeChange}
                                                 className="form-control"
                                                 placeholderText = "Seleccione Fecha"
+                                                
                                             />
                                         </div>
                                         <SimpleDropdown 
@@ -248,11 +256,15 @@ class Register extends Component {
                                             <label>Hora de Inicio</label>
                                             <DatePicker
                                                 name = "start_time"
-                                                dateFormat="yyyy/MM/dd"
                                                 selected={this.state.start_time}
                                                 onChange={this.handleStartTimeChange}
                                                 className="form-control"
-                                                placeholderText = "Seleccione Fecha"
+                                                placeholderText = "Seleccione Hora"
+                                                showTimeSelect
+                                                showTimeSelectOnly
+                                                timeIntervals={15}
+                                                dateFormat="h:mm"
+                                                timeCaption="Time"
                                                 />
                                             </div>
                                         <div className ="form-group">
@@ -281,7 +293,7 @@ class Register extends Component {
                                                 selectableData = {this.state.FilterListaProducto < 1 ? [{value:0, label:"Seleccione un Tipo Producto"}] : this.state.FilterListaProducto } 
                                                 handleInputChange = {this.handleChange} />
 
-                                            <Input label="Unidades" name="product_unit" handleChange={this.handleChange} style={{text_align: "center"}}/>
+                                            <Input label="Unidades" name="product_unit" value={this.state.product_unit} handleChange={event => this.setState({product_unit: event.target.value.replace(/\D/,'')})} style={{text_align: "center"}}/>
                                         </div>
                                         <div className="table-responsive">
                                             <table className="table table-bordered">
@@ -302,8 +314,8 @@ class Register extends Component {
                                             </table>
                                         </div>
 
-                                        <Input label="Peso de la carga" name="weight" handleChange={this.handleChange}/>
-                                        <Input label="Valor de la carga" name="value" handleChange={this.handleChange}/>
+                                        <Input label="Peso de la carga" name="weight" value={this.state.weight} handleChange={event => this.setState({weight: event.target.value.replace(/\D/,'')})}/>
+                                        <Input label="Valor de la carga" name="value" value={this.state.value} handleChange={event => this.setState({value: event.target.value.replace(/\D/,'')})}/>
                                         <Input label="Observaciones" name="observations" handleChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -328,5 +340,28 @@ class Register extends Component {
         )
     }
 }
+
+// Register.propTypes = {
+//     tracking_id: PropTypes.string, //
+//     expedition_date: PropTypes.string,// 
+//     city_id: PropTypes.number,//
+//     destinity_address: PropTypes.string,
+//     address: PropTypes.string,
+//     ptracking_id: PropTypes.number, //
+//     weight: PropTypes.number, //
+//     delivery_term: PropTypes.number,
+//     state:PropTypes.string, 
+//     value: PropTypes.number, //
+//     observations:PropTypes.string, // 
+//     start_time:PropTypes.string, 
+//     end_time:PropTypes.string, 
+//     location_id:PropTypes.number, 
+//     user_id:PropTypes.number, 
+//     id_contrato:PropTypes.string, 
+//     carrier_id: PropTypes.number,
+//     product_id: PropTypes.number,
+//     product_name: PropTypes.string,
+//     product_unit: PropTypes.number
+// } 
 
 export default Register;

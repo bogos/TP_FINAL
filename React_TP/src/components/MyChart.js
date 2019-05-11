@@ -9,31 +9,11 @@ import ReactApexChart from "react-apexcharts";
 
 class MyChart extends Component {
 
-    // state = {
-    //   data: [],
-    //   options: {
-    //     chart: {
-    //       id: this.props.id
-    //     },
-    //     xaxis: {
-    //       // categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-    //       type:'datetime',
-    //     },
-    //     yaxis: {
-    //       max: 100
-    //     }
-    //   },
-    //   series: [
-    //     {
-    //       data: data.slice()
-    //     }
-    //   ],
-    // }
-    
       interval_1 = {}
       interval_2 = {}
       data = []
       lastDate = "";  
+      lastValue = 0;
       state = {
         options: {
           chart: {
@@ -139,6 +119,7 @@ class MyChart extends Component {
       let sensor_master = await this.resolveSensorData();
 
       if(sensor_master.length < 1) return;
+
       let tmpData = [];
       let value = [];
       if(this.props.id === "temperatura") {
@@ -148,8 +129,11 @@ class MyChart extends Component {
       }
 
       var newDate = tmpData[tmpData.length - 1];
+      // if(newDate.value === this.lastValue) return;
+
       value = tmpData[tmpData.length - 1]
       this.lastDate = newDate.time;
+      this.lastValue = newDate.value;
 
       this.data.push({
         x: newDate.time,

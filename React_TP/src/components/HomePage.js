@@ -29,8 +29,10 @@ class HomePage extends Component {
     componentDidMount = async() => {
 
         this.allData = await this.resolveAllServices();
-
         let data = await this.dbServices.resolveListarCarga();
+        
+        console.log(data);
+        if(data < 1 || data === undefined) return;
         let process_data = [...data];
         
         process_data = process_data.map(x => {return {value: x.tracking_id, label: x.tracking_id}});
@@ -43,7 +45,7 @@ class HomePage extends Component {
     }
 
     componentWillUnmount() {
-
+        
     }
 
     resolveAllServices = async () => {
@@ -104,7 +106,6 @@ class HomePage extends Component {
         console.log("State", this.state);
 
         let selected = this.setTrackingData();
-
 
         await this.setState({
             newDataSelected: selected 

@@ -20,7 +20,7 @@ class Header extends Component {
                 <div className="nano has-scrollbar">
                     <div className="nano-content" tabIndex="0" style={{ right: "-17px" }}>
                         <ul>
-                            <li><Link to={"/"}><i className="ti-dashboard"></i> Dashboard </Link></li>
+                            <li><Link to={"/dashboard"}><i className="ti-dashboard"></i> Dashboard </Link></li>
                             {/* <li className="active"><a href="cargo_register.html"><i className="ti-desktop"></i>Registro</Link></li> */}
                             <li><Link to={"/register"}><i className="ti-desktop"></i>Registro</Link></li>
                             <li><Link to={"/reportes"}><i className="ti-bar-chart-alt"></i>Reportes</Link></li>

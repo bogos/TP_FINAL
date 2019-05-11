@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import Header from "./Header.js";
 import HomePage from "./HomePage.js";
 import Sidebar from "./Sidebar";
@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 
 // import {Trollbox} from 'trollbox-pro'
 import RegisterPage from "./RegisterPage";
-
+import Login from "./LoginPage";
 
 import "../assets/css/lib/font-awesome.min.css";
 import "../assets/css/lib/themify-icons.css";
@@ -23,35 +23,96 @@ Axios.defaults.headers = {"Content-Type": "application/json"}
 
 class App extends Component {
     state = {
+        login:false,
+        
+        user:"",
+        password:"",
+        success: true
     }
 
-    async componentDidMount() {
+    componentDidMount = () => {
+        if(localStorage.getItem("login") === null) return;
+        this.setState({login: localStorage.getItem("login")}, ()=>{
+            
+            console.log("localStorage", localStorage.getItem("login"), localStorage.getItem("login") === "true");
+            console.log("pathname", this.props.location.pathname, this.props.location.pathname === "/");
+            if(this.props.location.pathname === "/" && localStorage.getItem("login") === "true"){
+                console.log("ENTRE");
+                console.log(this.props.location.pathname);
+                this.setState({login:false});
+            }    
+        });
 
+    }
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    handleLogin = () => {
+        console.log(this.props.history);
+        let usersData = [{
+            user: "andre@test.com", 
+            pwd: "1234",
+        },
+        {
+            user: "nora@test.com", 
+            pwd: "1234"
+        }
+        ];
+
+        for(let users of usersData) {
+            if(this.state.user === users.user &&
+               this.state.password === users.pwd){
+                   this.setState({
+                       login: true}, ()=> {
+                            localStorage.setItem("login", this.state.login);
+                            console.log("DESDE ACA", localStorage.getItem("login"));
+                            this.props.history.push('/dashboard');
+                       });
+                }
+        }
+        this.setState({
+            success: false
+        })
     }
 
     render() {
         return (
             <>
-                <Sidebar/>
-                <Header/>
-                <div className="content-wrap">
-                    <div className="main">
-                    <div className="container-fluid">
-                        <Route path="/" exact render={() =>
-                            <HomePage/>
-                        }
+                { !this.state.login ? 
+                    <Route path="/" exact render={() =>
+                        <Login
+                            login = {this.state.login} 
+                            success= {this.state.success}
+                            handleChange={this.handleChange} 
+                            handleLogin={this.handleLogin}
                         />
+                    }/>
+                    :
+                    <>
+                    <Sidebar/>
+                    <Header/>
+                    <div className="content-wrap">
+                        <div className="main">
+                        <div className="container-fluid">
+                            <Route path="/dashboard" exact render={() =>
+                                <HomePage/>
+                            }/>
 
-                        <Route path="/register" render={() =>
-                            <RegisterPage/>
-                        }
-                        />
+                            <Route path="/register" render={() =>
+                                <RegisterPage/>
+                            }
+                            />
+                            </div>
                         </div>
                     </div>
-                </div>
+                    </>
+                }
             </>
         );
     }
 }
 
-export default App;
+export default withRouter(App);

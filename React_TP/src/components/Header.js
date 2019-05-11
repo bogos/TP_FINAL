@@ -3,30 +3,19 @@ import React, { Component } from "react";
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-           
+        this.state = { 
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
-    render() {
-       
+    render() {       
         return (
         <div className="header">
             <div className="pull-left">
             <div className="logo">
-              <a href="index.html">
+            
                 <span>E-Track</span>
-              </a>
             </div>
-            <div className="hamburger sidebar-toggle">
-              <span className="line"></span>
-              <span className="line"></span>
-              <span className="line"></span>
-            </div>
+
           </div>
             <div className="pull-right p-r-15">
                 <ul>
@@ -49,7 +38,6 @@ class Header extends Component {
           </div>
         )
     }
-
 }
 
 export default Header;

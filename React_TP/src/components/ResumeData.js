@@ -5,6 +5,8 @@ import { DBServices } from "../services";
 var updateInterval = 2000;
 
 class ResumeData extends Component {
+	
+	lastValue = 0;
 	constructor() {
 		super();
 		this.interval = {};
@@ -30,25 +32,28 @@ class ResumeData extends Component {
 	updateChart = async() => {
 		let sensor_master = await this.resolveSensorData();
 
+		if(sensor_master < 1 || sensor_master === undefined) return;
+
 		sensor_master = sensor_master.sort((a,b)=> (a.id_message > b.id_message) ? 1 : -1);
 
 		if(sensor_master.length < 1) return;
 		let tmpData = [];
-		let value = [];
+
 		if(this.props.id === "temperatura") {
 			tmpData = sensor_master.map(x => { return { value: x.temperatura, time: x.time }});
 		} else if (this.props.id === "humedad") { 
 			tmpData = sensor_master.map(x => { return { value: x.humidity, time: x.time }});
 		}
-		
-		var newDate = tmpData[tmpData.length - 1];
-		value = tmpData[tmpData.length - 1]
-		
-		this.dps.push({x: new Date(newDate.time) ,y: value.value});
+
+		var newData = tmpData[tmpData.length - 1];
+		this.lastValue = newData.value;
+		// if(newData.value === this.lastValue) return;
+
+		this.dps.push({x: new Date(newData.time) ,y: newData.value});
 
 		await this.setState({
-			value: value.value,
-			date: newDate.time
+			value: newData.value,
+			date: newData.time
 		});
 		if (this.dps.length >  10 ) {
 			this.dps.shift();

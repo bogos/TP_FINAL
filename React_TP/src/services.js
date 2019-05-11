@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export class DBServices {
         
-    // API_URL = "https://tpapi20190425120638.azurewebsites.net/api/TP";
-    API_URL = "http://localhost:58476/api/TP";
+    API_URL = "https://tpapi20190510124026.azurewebsites.net/api/TP";
+    // API_URL = "http://localhost:58476/api/TP";
     METHODS = {
         LISTAR_TIPO_PRODUCTO: "/ListarTipoProducto",
         LISTAR_PRODUCTO: "/ListarProducto",
