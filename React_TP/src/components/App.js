@@ -33,12 +33,9 @@ class App extends Component {
     componentDidMount = () => {
         if(localStorage.getItem("login") === null) return;
         this.setState({login: localStorage.getItem("login")}, ()=>{
-            
-            console.log("localStorage", localStorage.getItem("login"), localStorage.getItem("login") === "true");
-            console.log("pathname", this.props.location.pathname, this.props.location.pathname === "/");
+                // console.log("localStorage", localStorage.getItem("login"), localStorage.getItem("login") === "true");
+                // console.log("pathname", this.props.location.pathname, this.props.location.pathname === "/");
             if(this.props.location.pathname === "/" && localStorage.getItem("login") === "true"){
-                console.log("ENTRE");
-                console.log(this.props.location.pathname);
                 this.setState({login:false});
             }    
         });
