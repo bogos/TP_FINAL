@@ -238,7 +238,7 @@ class Register extends Component {
                                     <div className="left-form">
                                         <Input label="Codigo Seguimiento" pattern="" name="tracking_id" handleChange={this.handleChange}/>
                                         <div className ="form-group">
-                                            <label>Plazo de entrega</label>
+                                            <label>Fecha de Inicio</label>
                                             <DatePicker
                                                 name = "expedition_date"
                                                 dateFormat="yyyy/MM/dd"
@@ -268,7 +268,7 @@ class Register extends Component {
                                                 />
                                             </div>
                                         <div className ="form-group">
-                                            <label>Plazo de entrega</label>
+                                            <label>Fecha de entrega</label>
                                             <DatePicker
                                                 name = "end_time"
                                                 dateFormat="yyyy/MM/dd"
