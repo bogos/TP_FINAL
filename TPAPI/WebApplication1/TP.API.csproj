@@ -105,8 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\TPAPI20190425120638 - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\TPAPI20190510124026 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\TPAPI20190516081114 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -99,6 +99,7 @@ class ResumeData extends Component {
 							{ this.state.date }
 						</span> */}
 					</div>
+					<div style={{fontWeight:"bold", marginTop: "15px"}}>{this.props.maxLimit}<br></br>{this.props.minLimit}</div>
 				</div>
 			</div>
 

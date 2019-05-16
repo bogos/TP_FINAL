@@ -86,16 +86,15 @@ class Register extends Component {
         allServices.ListaTipoProducto = allServices.ListaTipoProducto.map(x => {return { value: x.typproduct_id , label: x.typ_name}});
         // allServices.ListaProducto = allServices.ListaProducto.map(x=> {return{value: x.product_id, label: x.product_name, product_type: x.typproduct_id}})
         
+        console.log("ALLSERVICES.ListaTipoProducto" ,allServices.ListaTipoProducto);
+
         // Generate false
-        allServices.ListaProducto = allServices.ListaProducto.map( (x, index, array) => {
-            if(index < 5){
-                return{value: x.product_id, label: x.product_name, product_type: 1}    
-            } else if(index > 4 && index < 10) {
-                return{value: x.product_id, label: x.product_name, product_type: 2}
-            } else {
-                return{value: x.product_id, label: x.product_name, product_type: 3}
-            }
-        })
+        allServices.ListaProducto = allServices.ListaProducto.map((x) => {
+            return{value: x.product_id, label: x.product_name, product_type: x.typproduct_id} 
+        });
+
+        console.log("ALLSERVICES.ListaProducto" ,allServices.ListaProducto);
+
         // allServices.CargaProducto = 
         // allServices.ListaSensor = allServices.ListaSensor.map(x => {return { value: x. , label: }})
         allServices.ListaCiudad = allServices.ListaCiudad.map(x => {return {value: x.city_id, label: x.city_name}});
@@ -314,9 +313,9 @@ class Register extends Component {
                                             </table>
                                         </div>
 
-                                        <Input label="Peso de la carga" name="weight" value={this.state.weight} handleChange={event => this.setState({weight: event.target.value.replace(/\D/,'')})}/>
-                                        <Input label="Valor de la carga" name="value" value={this.state.value} handleChange={event => this.setState({value: event.target.value.replace(/\D/,'')})}/>
-                                        <Input label="Observaciones" name="observations" handleChange={this.handleChange}/>
+                                        <Input label="Peso de la carga (Kg)" name="weight" value={this.state.weight} handleChange={event => this.setState({weight: event.target.value.replace(/\D/,'')})}/>
+                                        <Input label="Valor de la carga (S/.)" name="value" value={this.state.value} handleChange={event => this.setState({value: event.target.value.replace(/\D/,'')})}/>
+                                        <Input label="Observaciones (Opcional)" name="observations" handleChange={this.handleChange}/>
                                     </div>
                                 </div>
                                 <button className="register-btn" onClick={this.submitRegister}>Registrar</button>

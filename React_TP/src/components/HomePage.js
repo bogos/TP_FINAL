@@ -186,8 +186,8 @@ class HomePage extends Component {
                     <div className="row">
                         <div className="resume-content">
                             <div className="resume-charts">
-                                <ResumeData id="temperatura" image={temperatureImg} signo="C" color=""/>
-                                <ResumeData id="humedad" image={humidityImg} signo="%" color=""/>
+                                <ResumeData id="temperatura" image={temperatureImg} signo="F" color="" minLimit="LIMITE MÍNIMO: 17.6F (-8 C°)" maxLimit="LIMITE MÁXIMO: 28.4F (-2 C°)"/>
+                                <ResumeData id="humedad" image={humidityImg} signo="%" color="" minLimit="" maxLimit="30"/>
                             </div>
                             <div className="resume-info">
                                 <img src={documentImg}></img>
